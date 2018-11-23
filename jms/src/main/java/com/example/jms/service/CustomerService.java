@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jms.annotation.JmsListener;
 import org.springframework.jms.core.JmsTemplate;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @Slf4j
@@ -13,7 +14,8 @@ public class CustomerService {
     @Autowired
     JmsTemplate jmsTemplate;
 
-    @JmsListener(destination = "customer:msg1:new")
+    @Transactional
+    @JmsListener(destination = "customer:msg1:new",containerFactory = "msgFactory")
     public void handle(String msg){
         log.info("listener接收到msg===={}",msg);
         String reply="reply_"+msg;
