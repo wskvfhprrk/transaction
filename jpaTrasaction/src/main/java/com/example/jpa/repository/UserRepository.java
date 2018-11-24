@@ -2,9 +2,10 @@ package com.example.jpa.repository;
 
 import com.example.jpa.entity.User;
 import org.springframework.data.jpa.repository.JpaRepository;
+
 /**
  * UserRepository
- *
+ * <p>
  * 何哥 {@link  JpaRepository}
  * 2018/11/3 17:54
  **/

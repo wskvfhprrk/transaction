@@ -16,12 +16,12 @@ public class CustomerService {
 
     //如果不加@Transactional注解，handle就不能关联到消息事物，引发jmsTemplate.convertAndSend回滚
     @Transactional
-    @JmsListener(destination = "customer:msg1:new",containerFactory = "msgFactory")
-    public void handle(String msg){
-        log.info("listener接收到msg===={}",msg);
-        String reply="reply_"+msg;
-        jmsTemplate.convertAndSend("customer:msg:reply",reply);
-        if(msg.contains("error")){
+    @JmsListener(destination = "customer:msg1:new", containerFactory = "msgFactory")
+    public void handle(String msg) {
+        log.info("listener接收到msg===={}", msg);
+        String reply = "reply_" + msg;
+        jmsTemplate.convertAndSend("customer:msg:reply", reply);
+        if (msg.contains("error")) {
             error();
         }
     }

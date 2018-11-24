@@ -10,9 +10,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
+
 /**
  * controller
- *
+ * <p>
  * 何哥 {@link  RestController}
  * 2018/11/3 17:55
  **/
@@ -28,6 +29,7 @@ public class UserController {
     public User sava(@RequestBody User user) {
         return userService.save(user);
     }
+
     @PostMapping("saveUserByTraction")
     public User saveTransactional(@RequestBody User user) {
         return userService.saveTransactional(user);

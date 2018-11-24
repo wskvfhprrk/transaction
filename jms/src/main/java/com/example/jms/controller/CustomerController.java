@@ -19,20 +19,20 @@ public class CustomerController {
     CustomerService customerService;
 
     @GetMapping("customer/msg")
-    public void customerMsg(@RequestParam String msg){
-        log.info("获取页面数据msg:{}",msg);
-        jmsTemplate.convertAndSend("customer:msg1:new",msg);
+    public void customerMsg(@RequestParam String msg) {
+        log.info("获取页面数据msg:{}", msg);
+        jmsTemplate.convertAndSend("customer:msg1:new", msg);
     }
 
     @GetMapping("customer/handle")
-    public void handle(@RequestParam String msg){
-        log.info("获取页面数据msg:{}",msg);
+    public void handle(@RequestParam String msg) {
+        log.info("获取页面数据msg:{}", msg);
         customerService.handle(msg);
 
     }
 
     @GetMapping("getCustomer")
-    public String getCustomer(){
+    public String getCustomer() {
         jmsTemplate.setReceiveTimeout(2000L); //设置超时时间
         Object convert = jmsTemplate.receiveAndConvert("customer:msg:reply");
         return convert.toString();

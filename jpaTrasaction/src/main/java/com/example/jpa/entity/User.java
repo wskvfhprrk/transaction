@@ -3,9 +3,10 @@ package com.example.jpa.entity;
 import lombok.Data;
 
 import javax.persistence.*;
+
 /**
  * User实体类
- *
+ * <p>
  * 何哥 {@link  Entity}
  * 2018/11/3 17:55
  **/

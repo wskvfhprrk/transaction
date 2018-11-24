@@ -16,22 +16,23 @@ import javax.jms.ConnectionFactory;
 @Configuration
 public class JmsConfig {
     @Bean
-    PlatformTransactionManager platformTransactionManager(ConnectionFactory cf){
+    PlatformTransactionManager platformTransactionManager(ConnectionFactory cf) {
         return new JmsTransactionManager(cf);
     }
 
     @Bean
-    JmsTemplate jmsTemplate(ConnectionFactory cf){
-        JmsTemplate jmsTemplate=new JmsTemplate();
+    JmsTemplate jmsTemplate(ConnectionFactory cf) {
+        JmsTemplate jmsTemplate = new JmsTemplate();
         jmsTemplate.setConnectionFactory(cf);
         return jmsTemplate;
     }
+
     @Bean
     JmsListenerContainerFactory<?> msgFactory(ConnectionFactory cf,
                                               PlatformTransactionManager platformTransactionManager,
-                                              DefaultJmsListenerContainerFactoryConfigurer configurer){
-        DefaultJmsListenerContainerFactory factory=new DefaultJmsListenerContainerFactory();
-        configurer.configure(factory,cf);
+                                              DefaultJmsListenerContainerFactoryConfigurer configurer) {
+        DefaultJmsListenerContainerFactory factory = new DefaultJmsListenerContainerFactory();
+        configurer.configure(factory, cf);
         factory.setReceiveTimeout(10000L);
         factory.setTransactionManager(platformTransactionManager);
         return factory;
