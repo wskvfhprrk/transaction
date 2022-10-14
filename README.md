@@ -23,32 +23,42 @@
 ##### 数据库：
 
 ```sql
-DROP TABLE IF EXISTS `test`;
-CREATE TABLE `test` (
-  `id` int(11) NOT NULL,
-  `username` varchar(32) DEFAULT NULL,
-  `unit` int(11) DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+SET NAMES utf8mb4;
+SET FOREIGN_KEY_CHECKS = 0;
 
 -- ----------------------------
--- Records of test
+-- Table structure for tb_user
 -- ----------------------------
-INSERT INTO `test` VALUES ('1', 'he', '200');
-INSERT INTO `test` VALUES ('2', 'li', '0');
+DROP TABLE IF EXISTS `tb_user`;
+CREATE TABLE `tb_user`  (
+                          `id` int(11) NOT NULL,
+                          `username` varchar(255) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL COMMENT '用户名',
+                          `amount` bigint(255) NULL DEFAULT NULL,
+                          PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_bin ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of tb_user
+-- ----------------------------
+INSERT INTO `tb_user` VALUES (1, 'SuperMan', 100);
+INSERT INTO `tb_user` VALUES (2, 'BatMan', 100);
+
+SET FOREIGN_KEY_CHECKS = 1;
+
 ```
 
 ##### 实验过程sql:
 
 ```sql
-SELECT * FROM test;
--- 开启事务
+SELECT @@GLOBAL.tx_isolation, @@tx_isolation;
+
+SELECT * FROM tb_user;
 START TRANSACTION;
-UPDATE test set unit=unit+100 WHERE username='he';
-UPDATE test set unit=unit-100 WHERE username='li';
--- 提交事务
+UPDATE tb_user SET amount = amount + 100 WHERE username ='SuperMan';
+UPDATE tb_user SET amount = amount - 100 WHERE username ='BatMan';
 COMMIT;
 ```
+**新建数据表时使用innodb引擎**
 
 ##### java代码：
 
@@ -72,41 +82,58 @@ COMMIT;
 
 
 ```java
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
-public class Conn {
+/**
+ * @author:hejz 75412985@qq.com
+ * @create: 2022-10-13 21:30
+ * @Description: jdbc事务示例
+ */
+public class LocalJdbcTranApplication {
+  private static final Logger LOG=LoggerFactory.getLogger(LocalJdbcTranApplication.class);
+  public static void main(String[] args) throws SQLException {
+    Connection connection= getConnection();
+    //关闭自动提交事务
+    connection.setAutoCommit(false);
+    String sq1="UPDATE tb_user SET amount = amount + 100 WHERE username =?";
+    PreparedStatement ps1=connection.prepareStatement(sq1);
+    String sq2="UPDATE tb_user SET amount = amount - 100 WHERE username =?";
+    PreparedStatement ps2=connection.prepareStatement(sq2);
+    ps1.setString(1,"SuperMan");
+    ps1.execute();
+    //加入错误——模拟程序运行出错
+    error();
+    ps2.setString(1,"BatMan");
+    ps2.execute();
+    //提交事务
+    connection.commit();
+    ps1.close();
+    ps2.close();
+    connection.close();
+  }
 
-    public static void main(String[] args) throws SQLException {
-        Connection connection = getConnection();
-        connection.setAutoCommit(false);
-        String addSql = "UPDATE test set unit=unit+100 WHERE username=?";
-        PreparedStatement addpre = connection.prepareStatement(addSql);
-        addpre.setString(1, "he");
-        addpre.executeUpdate();
-        String reduceSql = "UPDATE test set unit=unit-100 WHERE username=?";
-        PreparedStatement reducepre = connection.prepareStatement(reduceSql);
-        reducepre.setString(1, "li");
-        reducepre.executeUpdate();
-        connection.commit();
-        addpre.close();
-        reducepre.close();
-        connection.close();
-    }
+  private static void error() throws SQLException {
+    throw new SQLException("error");
+  }
 
-    private static Connection getConnection() throws SQLException {
-        String url = "jdbc:mysql://localhost:3306/mds_order";
-        String user = "root";
-        String password = "123456";
-        try {
-            Class.forName("com.mysql.jdbc.Driver");
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return DriverManager.getConnection(url, user, password);
+  private static Connection getConnection() throws SQLException {
+    String driver="com.mysql.jdbc.Driver";
+    String url="jdbc:mysql://localhost:3306/test?useSSL=false";
+    String user="root";
+    String password="123456";
+    try {
+      Class.forName(driver);
+    } catch (ClassNotFoundException e) {
+      LOG.error(e.getLocalizedMessage());
     }
+    return DriverManager.getConnection(url,user,password);
+  }
 }
 ```
 
@@ -135,7 +162,7 @@ select * from test where id=1 FOR UPDATE
 
 `serializable`隔离与`FOR UPDATE`区别：
 
-当使用`serializable`隔离级别时，会把每一个sql加上锁，而`FOR UPDATE`仅针对某个sql进行加锁。
+当使用`serializable`隔离级别时，相当于把每一个sql加上锁，而`FOR UPDATE`仅针对某个sql进行加锁。
 
 ## spring事务管理
 
