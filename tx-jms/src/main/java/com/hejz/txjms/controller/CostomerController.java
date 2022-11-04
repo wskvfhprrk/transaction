@@ -36,11 +36,10 @@ public class CostomerController {
         customerService.handle(msg);
     }
     @GetMapping("all")
-    public String msg(){
+    public String getMsg(){
+        //超时2秒给结果——否则一直等下去
+        jmsTemplate.setReceiveTimeout(2000L);
         Object o = jmsTemplate.receiveAndConvert("customer:msg:reply");
-        if(o==null){
-            return null;
-        }
-        return (String) o;
+        return String.valueOf(o);
     }
 }
