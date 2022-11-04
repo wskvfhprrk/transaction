@@ -15,14 +15,16 @@
       <module name="demo" target="1.8" />
       <module name="jdbc-tran-local" target="8" />
       <module name="jpa-tx" target="1.8" />
-      <module name="transaction" target="8" />
+      <module name="transaction" target="1.5" />
+      <module name="tx-jms" target="1.8" />
     </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
       <module name="demo" options="-parameters" />
-      <module name="jdbc-tran-local" options="" />
+      <module name="jdbc-tran-local" options="-parameters" />
       <module name="jpa-tx" options="-parameters" />
+      <module name="tx-jms" options="-parameters" />
     </option>
   </component>
 </project>
