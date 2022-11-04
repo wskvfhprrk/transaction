@@ -21,7 +21,12 @@ public class CustomerServeAnnotation {
 
     @Transactional
     public Customer save(Customer customer){
+        error();
         return customerRepositocy.save(customer);
+    }
+
+    private void error() {
+        throw new RuntimeException("some error");
     }
 
     public Customer findByUsername(String username){

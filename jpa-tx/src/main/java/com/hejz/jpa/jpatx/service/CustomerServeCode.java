@@ -32,6 +32,7 @@ public class CustomerServeCode {
         TransactionStatus ts = transactionManager.getTransaction(dtf);
         try{
             Customer customer1 = customerRepositocy.save(customer);
+            error();
             transactionManager.commit(ts);
             return customer1;
         }catch (Exception e){
@@ -39,6 +40,10 @@ public class CustomerServeCode {
             throw e;
         }
 
+    }
+
+    private void error() {
+        throw new RuntimeException("some error");
     }
 
 }
