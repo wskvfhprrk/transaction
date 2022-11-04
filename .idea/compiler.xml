@@ -7,15 +7,17 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
+        <module name="spring-tx-jta" />
+        <module name="jdbc-tran" />
         <module name="tx-jms" />
         <module name="jpa-tx" />
-        <module name="jdbc-tran" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="demo" target="1.8" />
       <module name="jdbc-tran" target="8" />
       <module name="jpa-tx" target="1.8" />
+      <module name="spring-tx-jta" target="1.8" />
       <module name="transaction" target="1.8" />
       <module name="tx-jms" target="1.8" />
     </bytecodeTargetLevel>
@@ -25,6 +27,7 @@
       <module name="demo" options="-parameters" />
       <module name="jdbc-tran" options="-parameters" />
       <module name="jpa-tx" options="-parameters" />
+      <module name="spring-tx-jta" options="-parameters" />
       <module name="tx-jms" options="-parameters" />
     </option>
   </component>
