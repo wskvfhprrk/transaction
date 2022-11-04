@@ -8,6 +8,7 @@
     </JAVADOC>
     <SOURCES>
       <root url="jar://D:/apache-maven-3.5.3/repository/org/springframework/spring-tx/5.3.23/spring-tx-5.3.23-sources.jar!/" />
+      <root url="jar://D:/apache-maven-3.5.3/repository/org/springframework/spring-tx/5.3.23/spring-tx-5.3.23.jar!/" />
     </SOURCES>
   </library>
 </component>

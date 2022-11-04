@@ -28,12 +28,15 @@ public class CustomerServeCode {
     public Customer save(Customer customer){
         DefaultTransactionDefinition dtf=new DefaultTransactionDefinition();
         dtf.setIsolationLevel(TransactionDefinition.ISOLATION_DEFAULT);
+        //传播机制中PROPAGATION_SUPPORTS是原来如果有事务就有，没有就算了
+//        dtf.setPropagationBehavior(TransactionDefinition.PROPAGATION_SUPPORTS);
+        //修改默认传播机制——没有事务添加事务
         dtf.setPropagationBehavior(TransactionDefinition.PROPAGATION_REQUIRED);
         TransactionStatus ts = transactionManager.getTransaction(dtf);
         try{
             Customer customer1 = customerRepositocy.save(customer);
-            error();
             transactionManager.commit(ts);
+            error();
             return customer1;
         }catch (Exception e){
             transactionManager.rollback(ts);
