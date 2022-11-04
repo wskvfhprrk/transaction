@@ -22,5 +22,6 @@
 <modules>
     <module>jpa-tx</module>
     <module>jdbc-tran</module>
+    <module>tx-jms</module>
 </modules>
 </project>

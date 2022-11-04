@@ -2,9 +2,10 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/jdbc-tran/jdbc-tran-local.iml" filepath="$PROJECT_DIR$/jdbc-tran/jdbc-tran-local.iml" />
+      <module fileurl="file://$PROJECT_DIR$/jdbc-tran/jdbc-tran.iml" filepath="$PROJECT_DIR$/jdbc-tran/jdbc-tran.iml" />
       <module fileurl="file://$PROJECT_DIR$/jpa-tx/jpa-tx.iml" filepath="$PROJECT_DIR$/jpa-tx/jpa-tx.iml" />
       <module fileurl="file://$PROJECT_DIR$/transaction.iml" filepath="$PROJECT_DIR$/transaction.iml" />
+      <module fileurl="file://$PROJECT_DIR$/tx-jms/tx-jms.iml" filepath="$PROJECT_DIR$/tx-jms/tx-jms.iml" />
     </modules>
   </component>
 </project>

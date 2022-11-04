@@ -7,6 +7,7 @@
         <option value="$PROJECT_DIR$/jpa-tx/pom.xml" />
         <option value="$PROJECT_DIR$/jpa-tx/tx-jms/pom.xml" />
         <option value="$PROJECT_DIR$/pom.xml" />
+        <option value="$PROJECT_DIR$/tx-jms/pom.xml" />
       </list>
     </option>
   </component>
