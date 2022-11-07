@@ -11,7 +11,7 @@ import java.util.List;
 /**
  * @author:hejz 75412985@qq.com
  * @create: 2022-11-04 13:26
- * @Description: 标签实现事务
+ * @Description: 注解实现事务
  */
 @Service
 public class CustomerServeAnnotation {
