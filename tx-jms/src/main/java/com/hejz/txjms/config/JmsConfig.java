@@ -17,7 +17,7 @@ import javax.jms.ConnectionFactory;
 /**
  * @author:hejz 75412985@qq.com
  * @create: 2022-11-04 18:46
- * @Description: jms事务配置
+ * @Description: jms配置，使用配置时在@JmsListener的containerFactory = "msgFactory"配置即可
  */
 @EnableJms
 @Configuration

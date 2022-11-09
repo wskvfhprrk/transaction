@@ -25,8 +25,8 @@ public class CustomerService {
     private PlatformTransactionManager transactionManager;
     //containerFactory设置自己配置的msgFactory
     @Transactional
-    @JmsListener(destination = "customer:msg1:new")
-//    @JmsListener(destination = "customer:msg1:new",containerFactory = "msgFactory")
+//    @JmsListener(destination = "customer:msg1:new")
+    @JmsListener(destination = "customer:msg1:new",containerFactory = "msgFactory")
     public void handle(String msg){
         log.info("get msg1:{}",msg);
         String reply="reply1-"+msg;
