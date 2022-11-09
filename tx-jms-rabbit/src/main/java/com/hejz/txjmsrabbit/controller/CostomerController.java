@@ -64,8 +64,5 @@ public class CostomerController {
         return String.valueOf(o);
     }
 
-//    @RabbitListener(queues = "rabbitmqMsg")
-//    public void Listener(Object o){
-//        log.info("监听到消息：{}",o);
-//    }
+
 }

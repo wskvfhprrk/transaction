@@ -4,7 +4,6 @@ import com.rabbitmq.client.Channel;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.core.Message;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
-import org.springframework.amqp.rabbit.connection.ConnectionFactory;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -40,7 +39,9 @@ public class CostomerService {
 //    @RabbitHandler
     public void listener(Message message, Channel channel) throws IOException {
         log.info("接收到的数据为 ====> {}",message);
-        channel.basicAck(message.getMessageProperties().getDeliveryTag(),false);
+//        channel.basicReject(message.getMessageProperties().getDeliveryTag(),false);
+        channel.basicAck(message.getMessageProperties().getDeliveryTag(),true);
+//        channel.basicNack(message.getMessageProperties().getDeliveryTag(),false,false);
         /**
          *
          * channel.basicAck(msg.getMessageProperties().getDeliveryTag(),false);
@@ -54,4 +55,8 @@ public class CostomerService {
          *
          */
     }
+    //    @RabbitListener(queues = "rabbitmqMsg")
+//    public void Listener(Object o){
+//        log.info("监听到消息：{}",o);
+//    }
 }

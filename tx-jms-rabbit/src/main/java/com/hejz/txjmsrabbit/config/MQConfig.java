@@ -15,7 +15,11 @@ import org.springframework.messaging.converter.MappingJackson2MessageConverter;
 import org.springframework.messaging.handler.annotation.support.DefaultMessageHandlerMethodFactory;
 import org.springframework.messaging.handler.annotation.support.MessageHandlerMethodFactory;
 
-
+/**
+ * @author:hejz 75412985@qq.com
+ * @create: 2022-11-09 16:49
+ * @Description: rabbitmq启动配置类：配置消息可靠性和事务同时生效（配置文件中有配置）
+ */
 @Slf4j
 @Configuration
 public class MQConfig implements RabbitListenerConfigurer {

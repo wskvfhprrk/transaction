@@ -1,19 +1,13 @@
 package com.hejz.txjmsrabbit.controller;
 
 import com.hejz.txjmsrabbit.service.CostomerService;
-import com.rabbitmq.client.Channel;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.amqp.core.Message;
-import org.springframework.amqp.rabbit.annotation.RabbitListener;
-import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.io.IOException;
 
 /**
  * @author:hejz 75412985@qq.com
@@ -36,7 +30,4 @@ public class CostomerControllerInAnno {
         costomerService.send(msg);
     }
 
-    private void error() {
-        throw new RuntimeException("some error");
-    }
 }
