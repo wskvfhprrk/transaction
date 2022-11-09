@@ -1,13 +1,11 @@
 package com.hejz.txjmsrabbit.controller;
 
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.amqp.rabbit.annotation.RabbitListener;
+import org.springframework.amqp.core.AmqpTemplate;
 import org.springframework.amqp.rabbit.connection.ConnectionFactory;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.amqp.rabbit.transaction.RabbitTransactionManager;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.transaction.TransactionStatus;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.transaction.support.TransactionCallback;
 import org.springframework.transaction.support.TransactionTemplate;
 import org.springframework.web.bind.annotation.*;
@@ -22,7 +20,7 @@ import org.springframework.web.bind.annotation.*;
 @Slf4j
 public class CostomerController {
     @Autowired
-    private RabbitTemplate rabbitTemplate;
+    private AmqpTemplate amqpTemplate;
     @Autowired
     private ConnectionFactory connectionFactory;
 
@@ -58,11 +56,8 @@ public class CostomerController {
     @GetMapping("getmsg")
     public String getMsg(){
         //超时2秒给结果——否则一直等下去
-        rabbitTemplate.receive(2000L);
-        Object o = rabbitTemplate.receiveAndConvert("rabbitmqMsg");
+        Object o = amqpTemplate.receiveAndConvert("rabbitmqMsg");
         log.info("前端猎取消息：{}",o);
         return String.valueOf(o);
     }
-
-
 }

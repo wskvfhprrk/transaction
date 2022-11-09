@@ -2,9 +2,9 @@ package com.hejz.txjmsrabbit.service;
 
 import com.rabbitmq.client.Channel;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.amqp.core.AmqpTemplate;
 import org.springframework.amqp.core.Message;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
-import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -20,12 +20,13 @@ import java.io.IOException;
 @Slf4j
 public class CostomerService {
     @Autowired
-    private RabbitTemplate rabbitTemplate;
+    private AmqpTemplate amqpTemplate;
     //使用自定义的transactionManager管理器
     @Transactional(transactionManager = "rabbitTransactionManager")
     public void send(String msg){
         log.info("发送消息：{}",msg);
-        rabbitTemplate.convertAndSend("rabbitmqMsg.topic","rabbitmqMsg.bindKey",msg);
+        //如果routingKey值不对，配置的消息到达不到队列中就实会回退。
+        amqpTemplate.convertAndSend("rabbitmqMsg.topic","rabbitmqMsg.routingKey",msg);
         if(msg.contains("error")){
             error();
         }
@@ -35,7 +36,7 @@ public class CostomerService {
         throw new RuntimeException("some Error");
     }
 
-    @RabbitListener(queues = "rabbitmqMsg")
+//    @RabbitListener(queues = "rabbitmqMsg")
 //    @RabbitHandler
     public void listener(Message message, Channel channel) throws IOException {
         log.info("接收到的数据为 ====> {}",message);
@@ -55,8 +56,9 @@ public class CostomerService {
          *
          */
     }
-    //    @RabbitListener(queues = "rabbitmqMsg")
-//    public void Listener(Object o){
-//        log.info("监听到消息：{}",o);
-//    }
+//        @RabbitListener(queues = "rabbitmqMsg")
+    public void Listener(Message message,Channel channel) throws IOException {
+        log.info("监听到消息：{}",message);
+        channel.basicAck(message.getMessageProperties().getDeliveryTag(),true);
+    }
 }
