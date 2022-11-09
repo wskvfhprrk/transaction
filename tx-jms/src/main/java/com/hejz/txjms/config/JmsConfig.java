@@ -4,8 +4,6 @@ import org.springframework.boot.autoconfigure.jms.DefaultJmsListenerContainerFac
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.jms.annotation.EnableJms;
-import org.springframework.jms.annotation.JmsListenerAnnotationBeanPostProcessor;
-import org.springframework.jms.config.DefaultJcaListenerContainerFactory;
 import org.springframework.jms.config.DefaultJmsListenerContainerFactory;
 import org.springframework.jms.config.JmsListenerContainerFactory;
 import org.springframework.jms.connection.JmsTransactionManager;
@@ -36,7 +34,7 @@ public class JmsConfig {
     }
 
     @Bean
-    JmsListenerContainerFactory<?> msgFactory(ConnectionFactory cf, PlatformTransactionManager transactionManager,DefaultJmsListenerContainerFactoryConfigurer configurer){
+    JmsListenerContainerFactory<?> msgFactory(ConnectionFactory cf, PlatformTransactionManager transactionManager, DefaultJmsListenerContainerFactoryConfigurer configurer){
         DefaultJmsListenerContainerFactory factory=new DefaultJmsListenerContainerFactory();
         configurer.configure(factory,cf);
         //设置一个长的时间，防止日志过多

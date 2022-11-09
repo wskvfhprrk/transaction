@@ -7,6 +7,7 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
+        <module name="tx-jms-rabbit" />
         <module name="spring-tx-jta" />
         <module name="jdbc-tran" />
         <module name="tx-jms" />
@@ -20,6 +21,7 @@
       <module name="spring-tx-jta" target="1.8" />
       <module name="transaction" target="1.8" />
       <module name="tx-jms" target="1.8" />
+      <module name="tx-jms-rabbit" target="1.8" />
     </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
@@ -29,6 +31,7 @@
       <module name="jpa-tx" options="-parameters" />
       <module name="spring-tx-jta" options="-parameters" />
       <module name="tx-jms" options="-parameters" />
+      <module name="tx-jms-rabbit" options="-parameters" />
     </option>
   </component>
 </project>

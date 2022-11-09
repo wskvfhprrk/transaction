@@ -9,6 +9,7 @@
         <option value="$PROJECT_DIR$/pom.xml" />
         <option value="$PROJECT_DIR$/tx-jms/pom.xml" />
         <option value="$PROJECT_DIR$/spring-tx-jta/pom.xml" />
+        <option value="$PROJECT_DIR$/tx-jms-rabbit/pom.xml" />
       </list>
     </option>
   </component>
