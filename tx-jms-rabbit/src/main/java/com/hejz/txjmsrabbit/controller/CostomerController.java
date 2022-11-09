@@ -23,8 +23,8 @@ import org.springframework.web.bind.annotation.*;
 public class CostomerController {
     @Autowired
     private RabbitTemplate rabbitTemplate;
-@Autowired
-private ConnectionFactory connectionFactory;
+    @Autowired
+    private ConnectionFactory connectionFactory;
 
     /**
      * 直接通过
@@ -64,8 +64,8 @@ private ConnectionFactory connectionFactory;
         return String.valueOf(o);
     }
 
-    @RabbitListener(queues = "rabbitmqMsg")
-    public void Listener(Object o){
-        log.info("监听到消息：{}",o);
-    }
+//    @RabbitListener(queues = "rabbitmqMsg")
+//    public void Listener(Object o){
+//        log.info("监听到消息：{}",o);
+//    }
 }
