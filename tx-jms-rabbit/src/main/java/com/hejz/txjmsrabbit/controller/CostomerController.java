@@ -1,8 +1,9 @@
 package com.hejz.txjmsrabbit.controller;
 
-import com.hejz.txjmsrabbit.service.CustomerService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.core.AmqpTemplate;
+import org.springframework.amqp.core.Binding;
+import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -17,32 +18,29 @@ import org.springframework.web.bind.annotation.*;
 public class CostomerController {
     @Autowired
     private AmqpTemplate amqpTemplate;
-    @Autowired
-    private CustomerService customerService;
 
-    /**
-     * 通过监听方式
-     * @param msg
-     */
-//    @PostMapping("listen")
-//    public void listen(@RequestParam String msg){
-//        rabbitTemplate.convertAndSend("customer:msg1:new",msg);
-//    }
 
     /**
      * 直接通过
      * @param msg
      */
     @GetMapping("dirtect")
-    public void dirtect(@RequestParam String msg){
-        customerService.handle(msg);
+    public String dirtect(@RequestParam String msg){
+        log.info("发送消息：{}",msg);
+        amqpTemplate.convertAndSend("rabbitmqMsg.topic","rabbitmqMsg.bindKey",msg);
+        return "发送消息成功";
     }
-    @GetMapping("all")
+    @GetMapping("getmsg")
     public String getMsg(){
         //超时2秒给结果——否则一直等下去
-//        rabbitTemplate.setReceiveTimeout(2000L);
-        Object o = amqpTemplate.receiveAndConvert("rabbitMsg");
+        amqpTemplate.receive(2000L);
+        Object o = amqpTemplate.receiveAndConvert("rabbitmqMsg");
         log.info("前端猎取消息：{}",o);
         return String.valueOf(o);
+    }
+
+    @RabbitListener(queues = "rabbitmqMsg")
+    public void Listener(Object o){
+        log.info("监听到消息：{}",o);
     }
 }
