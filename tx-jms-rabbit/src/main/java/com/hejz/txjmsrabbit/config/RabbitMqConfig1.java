@@ -13,7 +13,7 @@ import org.springframework.context.annotation.Configuration;
  * @Description: rabbitmq启动配置类
  */
 @Configuration
-public class RabbitMqConfig {
+public class RabbitMqConfig1 {
     /**
      * 创建队列rabbitmqMsg
      * @return

@@ -11,6 +11,7 @@ import java.io.IOException;
 import static com.hejz.txjmsrabbit.config.RabbitMQConfig.BUSINESS_QUEUEA_NAME;
 import static com.hejz.txjmsrabbit.config.RabbitMQConfig.BUSINESS_QUEUEB_NAME;
 
+
 /**
  * @author:hejz 75412985@qq.com
  * @create: 2022-11-04 18:18
