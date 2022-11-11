@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @Description: 标签实现事物
  */
 @RestController
-@RequestMapping("api/msg")
+@RequestMapping("api/anno")
 @Slf4j
 public class CostomerControllerInAnno {
     @Autowired
@@ -25,7 +25,7 @@ public class CostomerControllerInAnno {
      * 直接通过
      * @param msg
      */
-    @GetMapping("sendAnno")
+    @GetMapping("send")
     public void sendAnno(@RequestParam String msg){
         costomerService.send(msg);
     }
