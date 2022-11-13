@@ -39,6 +39,7 @@ public class BusinessMessageReceiver {
             log.error("消息消费发生异常，error msg:{}", exception.getMessage(), exception);
             channel.basicNack(message.getMessageProperties().getDeliveryTag(), false, false);
         } else { //如果不含有拒绝的就被确认
+            log.info("如果不含有拒绝的就被确认");
             channel.basicAck(message.getMessageProperties().getDeliveryTag(), false);
         }
     }
