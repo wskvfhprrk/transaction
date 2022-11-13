@@ -15,7 +15,7 @@ import java.util.List;
 /**
  * @author:hejz 75412985@qq.com
  * @create: 2022-11-04 18:18
- * @Description: 标签实现事物
+ * @Description: 标签实现事物及双数据源测试
  */
 @RestController
 @RequestMapping("api/anno")

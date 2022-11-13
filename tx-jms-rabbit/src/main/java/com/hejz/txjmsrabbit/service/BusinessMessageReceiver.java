@@ -35,13 +35,12 @@ public class BusinessMessageReceiver {
             ack = false;
             exception = e;
         }
-        if (!ack){ //如果是死信消息就被道拒绝进入死死队列
-            log.error("消息消费发生异常，error msg:{}", exception.getMessage());
+        if (!ack){ //如果是死信消息就被道拒绝进入死信队列
+            log.error("消息消费发生异常，error msg:{}，消息进入死信队列", exception.getMessage());
 //            log.error("消息消费发生异常，error msg:{}", exception.getMessage(), exception);
             channel.basicNack(message.getMessageProperties().getDeliveryTag(), false, false);
         } else { //如果不含有拒绝的就被确认
-            log.info("如果不含有拒绝的就被确认");
-            // todo 如果实行业务，需要在收到消息后确认消息，不然会一直占用消息队列，消费完不会删除
+            log.info("如果不含有\"deadletter\"拒绝的就被确认");
             channel.basicAck(message.getMessageProperties().getDeliveryTag(), false);
         }
     }

@@ -17,8 +17,8 @@ import java.util.Map;
 public class DeadRabbitMQConfig {
 
     public static final String BUSINESS_EXCHANGE_NAME = "dead.letter.demo.simple.business.exchange";
-    public static final String BUSINESS_QUEUEA_NAME = "dead.letter.demo.simple.business.queuea";
-    public static final String BUSINESS_QUEUEB_NAME = "dead.letter.demo.simple.business.queueb";
+    public static final String BUSINESS_QUEUEA_NAME = "demo.simple.business.queuea";
+    public static final String BUSINESS_QUEUEB_NAME = "demo.simple.business.queueb";
     public static final String DEAD_LETTER_EXCHANGE = "dead.letter.demo.simple.deadletter.exchange";
     public static final String DEAD_LETTER_QUEUEA_ROUTING_KEY = "dead.letter.demo.simple.deadletter.queuea.routingkey";
     public static final String DEAD_LETTER_QUEUEB_ROUTING_KEY = "dead.letter.demo.simple.deadletter.queueb.routingkey";
@@ -65,7 +65,7 @@ public class DeadRabbitMQConfig {
         return new Queue(DEAD_LETTER_QUEUEA_NAME);
     }
 
-    // 声明死信队列BF
+    // 声明死信队列B
     @Bean("deadLetterQueueB")
     public Queue deadLetterQueueB() {
         return new Queue(DEAD_LETTER_QUEUEB_NAME);

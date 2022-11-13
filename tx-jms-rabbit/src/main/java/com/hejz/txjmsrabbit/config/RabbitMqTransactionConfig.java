@@ -45,7 +45,6 @@ public class RabbitMqTransactionConfig implements RabbitListenerConfigurer {
             } else {
                 log.info("消息未发送到交换器 cause:{} - {}", s, correlationData.toString());
             }
-
         });
         //消息没有到队列则回调该函数——当routingKey删除或不见时（消息不到队列时会触发）
         rabbitTemplate.setReturnsCallback(returnedMessage -> log.info("消息被退回 {}", returnedMessage.toString()));
