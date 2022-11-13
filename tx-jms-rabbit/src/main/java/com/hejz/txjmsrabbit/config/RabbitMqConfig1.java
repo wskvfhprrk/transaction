@@ -47,13 +47,13 @@ public class RabbitMqConfig1 {
      * 连接工厂
      * @return
      */
-    @Bean
-    public ConnectionFactory rabbitConnectionFactory() {
-        CachingConnectionFactory connectionFactory = new CachingConnectionFactory();
-        connectionFactory.setHost("localhost");
-        connectionFactory.setPort(5672);
-        connectionFactory.setUsername("root");
-        connectionFactory.setPassword("123456");
-        return connectionFactory;
-    }
+//    @Bean
+//    public ConnectionFactory rabbitConnectionFactory() {
+//        CachingConnectionFactory connectionFactory = new CachingConnectionFactory();
+//        connectionFactory.setHost("localhost");
+//        connectionFactory.setPort(5672);
+//        connectionFactory.setUsername("root");
+//        connectionFactory.setPassword("123456");
+//        return connectionFactory;
+//    }
 }

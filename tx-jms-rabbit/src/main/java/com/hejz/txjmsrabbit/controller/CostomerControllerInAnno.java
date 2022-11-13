@@ -1,5 +1,6 @@
 package com.hejz.txjmsrabbit.controller;
 
+import com.hejz.txjmsrabbit.domain.Customer;
 import com.hejz.txjmsrabbit.service.CostomerService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,6 +8,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
 
 
 /**
@@ -28,6 +31,10 @@ public class CostomerControllerInAnno {
     @GetMapping("send")
     public void sendAnno(@RequestParam String msg){
         costomerService.send(msg);
+    }
+    @GetMapping("all")
+    public List<Customer> getAll(){
+        return costomerService.all();
     }
 
 }

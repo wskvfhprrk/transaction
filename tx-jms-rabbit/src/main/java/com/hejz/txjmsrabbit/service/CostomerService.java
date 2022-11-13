@@ -1,5 +1,7 @@
 package com.hejz.txjmsrabbit.service;
 
+import com.hejz.txjmsrabbit.dao.CustomerRepositocy;
+import com.hejz.txjmsrabbit.domain.Customer;
 import com.rabbitmq.client.Channel;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.core.AmqpTemplate;
@@ -10,6 +12,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.io.IOException;
+import java.util.List;
 
 /**
  * @author:hejz 75412985@qq.com
@@ -21,11 +24,19 @@ import java.io.IOException;
 public class CostomerService {
     @Autowired
     private AmqpTemplate amqpTemplate;
+    @Autowired
+    private CustomerRepositocy customerRepositocy;
     //使用自定义的transactionManager管理器
-    @Transactional(transactionManager = "rabbitTransactionManager")
+    @Transactional
     public void send(String msg){
         log.info("发送消息：{}",msg);
         //如果routingKey值不对，配置的消息到达不到队列中就实会回退。
+        Customer customer=new Customer();
+        customer.setAge(20);
+        customer.setPassword("11111");
+        customer.setUsername(msg);
+        customer.setRoleId("111");
+        customerRepositocy.save(customer);
         amqpTemplate.convertAndSend("rabbitmqMsg.topic","rabbitmqMsg.routingKey",msg);
         if(msg.contains("error")){
             error();
@@ -56,9 +67,13 @@ public class CostomerService {
          *
          */
     }
-//        @RabbitListener(queues = "rabbitmqMsg")
+        @RabbitListener(queues = "rabbitmqMsg")
     public void Listener(Message message,Channel channel) throws IOException {
         log.info("监听到消息：{}",message);
         channel.basicAck(message.getMessageProperties().getDeliveryTag(),true);
+    }
+
+    public List<Customer> all(){
+        return customerRepositocy.findAll();
     }
 }

@@ -72,12 +72,12 @@ public class MQConfig implements RabbitListenerConfigurer {
 
 
     /**
-     * rabbitmq事务管理器
+     * rabbitmq事务管理器——配置双数据源时不需要配置事务时
      * @param connectionFactory
      * @return
      */
-    @Bean("rabbitTransactionManager")
-    RabbitTransactionManager rabbitTransactionManager(ConnectionFactory connectionFactory) {
-        return new RabbitTransactionManager(connectionFactory);
-    }
+//    @Bean("rabbitTransactionManager")
+//    RabbitTransactionManager rabbitTransactionManager(ConnectionFactory connectionFactory) {
+//        return new RabbitTransactionManager(connectionFactory);
+//    }
 }
