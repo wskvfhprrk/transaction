@@ -26,7 +26,6 @@ public class CostomerService {
     private AmqpTemplate amqpTemplate;
     @Autowired
     private CustomerRepositocy customerRepositocy;
-    //使用自定义的transactionManager管理器
     @Transactional
     public void send(String msg){
         log.info("发送消息：{}",msg);
@@ -67,7 +66,7 @@ public class CostomerService {
          *
          */
     }
-        @RabbitListener(queues = "rabbitmqMsg")
+    @RabbitListener(queues = "rabbitmqMsg")
     public void Listener(Message message,Channel channel) throws IOException {
         log.info("监听到消息：{}",message);
         channel.basicAck(message.getMessageProperties().getDeliveryTag(),true);

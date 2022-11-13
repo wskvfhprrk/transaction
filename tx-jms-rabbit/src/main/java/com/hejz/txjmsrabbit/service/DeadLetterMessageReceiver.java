@@ -7,8 +7,8 @@ import org.springframework.stereotype.Component;
 
 import java.io.IOException;
 
-import static com.hejz.txjmsrabbit.config.RabbitMQConfig.DEAD_LETTER_QUEUEA_NAME;
-import static com.hejz.txjmsrabbit.config.RabbitMQConfig.DEAD_LETTER_QUEUEB_NAME;
+import static com.hejz.txjmsrabbit.config.DeadRabbitMQConfig.DEAD_LETTER_QUEUEA_NAME;
+import static com.hejz.txjmsrabbit.config.DeadRabbitMQConfig.DEAD_LETTER_QUEUEB_NAME;
 
 /**
  * @author:hejz 75412985@qq.com

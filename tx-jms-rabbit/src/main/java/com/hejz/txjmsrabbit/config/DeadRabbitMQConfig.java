@@ -11,10 +11,10 @@ import java.util.Map;
 /**
  * @author:hejz 75412985@qq.com
  * @create: 2022-11-09 16:49
- * @Description: rabbitmq死信配置
+ * @Description: rabbitmq死信队列配置
  */
 @Configuration
-public class RabbitMQConfig {
+public class DeadRabbitMQConfig {
 
     public static final String BUSINESS_EXCHANGE_NAME = "dead.letter.demo.simple.business.exchange";
     public static final String BUSINESS_QUEUEA_NAME = "dead.letter.demo.simple.business.queuea";
@@ -65,7 +65,7 @@ public class RabbitMQConfig {
         return new Queue(DEAD_LETTER_QUEUEA_NAME);
     }
 
-    // 声明死信队列B
+    // 声明死信队列BF
     @Bean("deadLetterQueueB")
     public Queue deadLetterQueueB() {
         return new Queue(DEAD_LETTER_QUEUEB_NAME);

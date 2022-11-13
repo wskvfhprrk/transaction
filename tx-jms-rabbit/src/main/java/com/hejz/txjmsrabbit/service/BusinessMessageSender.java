@@ -4,7 +4,7 @@ import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import static com.hejz.txjmsrabbit.config.RabbitMQConfig.BUSINESS_EXCHANGE_NAME;
+import static com.hejz.txjmsrabbit.config.DeadRabbitMQConfig.BUSINESS_EXCHANGE_NAME;
 
 /**
  * @author:hejz 75412985@qq.com

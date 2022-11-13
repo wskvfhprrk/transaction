@@ -1,8 +1,6 @@
 package com.hejz.txjmsrabbit.config;
 
 import org.springframework.amqp.core.*;
-import org.springframework.amqp.rabbit.connection.CachingConnectionFactory;
-import org.springframework.amqp.rabbit.connection.ConnectionFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -10,10 +8,10 @@ import org.springframework.context.annotation.Configuration;
 /**
  * @author:hejz 75412985@qq.com
  * @create: 2022-11-09 16:49
- * @Description: rabbitmq启动配置类
+ * @Description: rabbitmq测试
  */
 @Configuration
-public class RabbitMqConfig1 {
+public class RabbitMqTestConfig {
     /**
      * 创建队列rabbitmqMsg
      * @return

@@ -6,7 +6,6 @@ import org.springframework.amqp.rabbit.annotation.RabbitListenerConfigurer;
 import org.springframework.amqp.rabbit.connection.ConnectionFactory;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.amqp.rabbit.listener.RabbitListenerEndpointRegistrar;
-import org.springframework.amqp.rabbit.transaction.RabbitTransactionManager;
 import org.springframework.amqp.support.converter.Jackson2JsonMessageConverter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -17,12 +16,16 @@ import org.springframework.messaging.handler.annotation.support.MessageHandlerMe
 /**
  * @author:hejz 75412985@qq.com
  * @create: 2022-11-09 16:49
- * @Description: rabbitmq启动配置类：配置消息可靠性和事务同时生效（配置文件中有配置）
+ * @Description: rabbitmq事务启动配置类：配置消息可靠性和事务同时生效（配置文件中有配置）
  */
 @Slf4j
 @Configuration
-public class MQConfig implements RabbitListenerConfigurer {
-
+public class RabbitMqTransactionConfig implements RabbitListenerConfigurer {
+    /**
+     * 配置使用可以使用注解方式@Transactional事务
+     * @param connectionFactory
+     * @return
+     */
     @Bean
     public RabbitTemplate rabbitTemplate(ConnectionFactory connectionFactory) {
         RabbitTemplate rabbitTemplate = new RabbitTemplate(connectionFactory);
@@ -44,7 +47,7 @@ public class MQConfig implements RabbitListenerConfigurer {
             }
 
         });
-        //消息没有到队列则回调该函数
+        //消息没有到队列则回调该函数——当routingKey删除或不见时（消息不到队列时会触发）
         rabbitTemplate.setReturnsCallback(returnedMessage -> log.info("消息被退回 {}", returnedMessage.toString()));
         return rabbitTemplate;
     }
